@@ -48,8 +48,8 @@ const RequisitionDetailsForm: React.FC<{
     },
   });
 
-  const state = useContext(DataContext)?.state;
-  const setState = useContext(DataContext)?.setState;
+  const state = useContext(DataContext)?.state!;
+  const setState = useContext(DataContext)?.setState!;
 
   // console.log(isValid);
   // console.log(values);

@@ -45,14 +45,15 @@ const JobDetailsForm: React.FC<{
   useEffect(() => {
     // console.log(isValid);
 
-    setState({
-      ...state,
-      jobDetails: {
-        jobDetails: values.jobDetails,
-        jobLocation: values.jobLocation,
-        jobTitle: values.jobTitle,
-      },
-    });
+    if (setState)
+      setState({
+        ...state,
+        jobDetails: {
+          jobDetails: values.jobDetails,
+          jobLocation: values.jobLocation,
+          jobTitle: values.jobTitle,
+        },
+      });
   }, [values]);
 
   return (

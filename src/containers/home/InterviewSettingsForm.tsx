@@ -62,18 +62,19 @@ const InterviewDetailsForm: React.FC<{
     },
   });
 
-  const state = useContext(DataContext)?.state;
-  const setState = useContext(DataContext)?.setState;
+  const state = useContext(DataContext)?.state!;
+  const setState = useContext(DataContext)?.setState!;
 
   useEffect(() => {
-    setState({
-      ...state,
-      interviewSettings: {
-        interviewDuration: values.interviewDuration,
-        interviewLanguage: values.interviewLanguage,
-        interviewMode: values.interviewMode,
-      },
-    });
+    if (setState)
+      setState({
+        ...state,
+        interviewSettings: {
+          interviewDuration: values.interviewDuration,
+          interviewLanguage: values.interviewLanguage,
+          interviewMode: values.interviewMode,
+        },
+      });
   }, [values]);
 
   return (
