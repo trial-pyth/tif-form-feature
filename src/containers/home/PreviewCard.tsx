@@ -114,7 +114,7 @@ const PreviewCard: React.FC<{
               }
             />
           </DataCard>
-          <DataCard title="Job Detail">
+          <DataCard title="Job Details">
             <KeyValue title="Job Title" value={state.jobDetails?.jobTitle} />
             <KeyValue
               title="Job Details"
