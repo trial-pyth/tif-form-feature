@@ -93,7 +93,11 @@ const JobDetailsForm: React.FC<{
           <Button colorScheme="gray" type="button" onClick={() => handleTab(0)}>
             Previous
           </Button>
-          <Button colorScheme="red" type="submit" onClick={handleSubmit}>
+          <Button
+            colorScheme="red"
+            type="submit"
+            onClick={() => handleSubmit()}
+          >
             Next
           </Button>
         </Flex>
