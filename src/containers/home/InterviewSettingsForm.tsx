@@ -1,7 +1,8 @@
 import { Button, Flex, Box } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import FormSelect from "../../components/formComponents/FormSelect";
 import { useFormik } from "formik";
+import * as Yup from "yup";
 import { PageNumbers } from "../../interface/home";
 import { IInterViewSettings } from "../../interface/forms";
 import {
@@ -9,6 +10,11 @@ import {
   interviewLanguageOptions,
   interviewModeOptions,
 } from "./constants";
+
+import { DataContext } from "./DataProvider";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const InterviewDetailsForm: React.FC<{
   handleTab: (n: PageNumbers) => void;
@@ -26,11 +32,49 @@ const InterviewDetailsForm: React.FC<{
       interviewDuration: "",
       interviewLanguage: "",
     },
+    validationSchema: Yup.object().shape({
+      interviewMode: Yup.string().required("Interview mode is required"),
+      interviewDuration: Yup.string().required(
+        "Interview Duration is required"
+      ),
+      interviewLanguage: Yup.string().required(
+        "Interview Language is required"
+      ),
+    }),
     onSubmit: (values) => {
-      console.log({ values });
-      alert("Form successfully submitted");
+      // console.log({ values });
+      toast.success("Form Submitted!", {
+        position: "top-center",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+
+      if (typeof window !== "undefined") {
+        setTimeout(() => {
+          window.location.reload();
+        }, 2600);
+      }
     },
   });
+
+  const state = useContext(DataContext)?.state;
+  const setState = useContext(DataContext)?.setState;
+
+  useEffect(() => {
+    setState({
+      ...state,
+      interviewSettings: {
+        interviewDuration: values.interviewDuration,
+        interviewLanguage: values.interviewLanguage,
+        interviewMode: values.interviewMode,
+      },
+    });
+  }, [values]);
 
   return (
     <Box width="100%" as="form" onSubmit={handleSubmit as any}>
@@ -58,7 +102,7 @@ const InterviewDetailsForm: React.FC<{
           touched={touched?.interviewDuration}
         />
         <FormSelect
-          label="Job Location"
+          label="Interview Language"
           name="interviewLanguage"
           placeholder="Select interview language"
           options={interviewLanguageOptions}
@@ -74,6 +118,18 @@ const InterviewDetailsForm: React.FC<{
           </Button>
           <Button colorScheme="red" type="submit">
             Submit
+            <ToastContainer
+              position="top-center"
+              autoClose={2500}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="colored"
+            />
           </Button>
         </Flex>
       </Box>

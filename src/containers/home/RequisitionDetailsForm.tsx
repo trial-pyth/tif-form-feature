@@ -8,6 +8,10 @@ import { PageNumbers } from "../../interface/home";
 import { IRequisitionDetails } from "../../interface/forms";
 import { genderOptions, urgencyOptions } from "./constants";
 
+//edit
+import { useContext, useEffect } from "react";
+import { DataContext } from "./DataProvider";
+
 const RequisitionDetailsForm: React.FC<{
   handleTab: (n: PageNumbers) => void;
 }> = ({ handleTab }) => {
@@ -40,8 +44,34 @@ const RequisitionDetailsForm: React.FC<{
     }),
     onSubmit: (values) => {
       handleTab(1);
+      // console.log(values);
     },
   });
+
+  const state = useContext(DataContext)?.state;
+  const setState = useContext(DataContext)?.setState;
+
+  // console.log(isValid);
+  // console.log(values);
+
+  useEffect(() => {
+    // setState({...state,{}});
+    setState({
+      ...state,
+      requisitionDetails: {
+        gender: values.gender,
+        noOfOpenings: values.noOfOpenings,
+        urgency: values.urgency,
+        requisitionTitle: values.requisitionTitle,
+      },
+    });
+
+    // console.log(state);
+    // useData()?.setState({ ...useData()?.state, values });
+    // console.log(state);
+  }, [values]);
+
+  // console.log(state.requisitionDetails);
 
   return (
     <Box width="100%" as="form" onSubmit={handleSubmit as any}>
@@ -74,7 +104,7 @@ const RequisitionDetailsForm: React.FC<{
           onChange={setFieldValue}
           onBlur={setFieldTouched}
           error={errors.gender}
-          touched={touched.gender}
+          touched={touched?.gender}
           value={values.gender}
         />
         <FormSelect
@@ -85,7 +115,7 @@ const RequisitionDetailsForm: React.FC<{
           onChange={setFieldValue}
           onBlur={setFieldTouched}
           error={errors.urgency}
-          touched={touched.urgency}
+          touched={touched?.urgency}
           value={values.urgency}
         />
         <Flex w="100%" justify="flex-end" mt="4rem">

@@ -19,7 +19,7 @@ const initialValues = {
   },
 };
 
-const DataContext = createContext<{
+export const DataContext = createContext<{
   state: typeof initialValues;
   setState: React.Dispatch<React.SetStateAction<typeof initialValues>>;
 } | null>(null);
