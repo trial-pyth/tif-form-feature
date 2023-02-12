@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { PageNumbers } from "../../interface/home";
 import { IJobDetails } from "../../interface/forms";
 
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { DataContext } from "./DataProvider";
 
 const JobDetailsForm: React.FC<{
@@ -33,13 +33,15 @@ const JobDetailsForm: React.FC<{
     }),
     onSubmit: (values) => {
       // console.log({ values });
+
       handleTab(2);
     },
   });
 
-  const state = useContext(DataContext)?.state;
-  const setState = useContext(DataContext)?.setState;
+  const state = useContext(DataContext)?.state!;
+  const setState = useContext(DataContext)?.setState!;
 
+  const formRef = useRef();
   useEffect(() => {
     // console.log(isValid);
 
@@ -90,7 +92,7 @@ const JobDetailsForm: React.FC<{
           <Button colorScheme="gray" type="button" onClick={() => handleTab(0)}>
             Previous
           </Button>
-          <Button colorScheme="red" type="submit" onClick={() => handleTab(2)}>
+          <Button colorScheme="red" type="submit" onClick={handleSubmit}>
             Next
           </Button>
         </Flex>

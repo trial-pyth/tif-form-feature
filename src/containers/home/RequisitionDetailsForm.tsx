@@ -65,10 +65,6 @@ const RequisitionDetailsForm: React.FC<{
         requisitionTitle: values.requisitionTitle,
       },
     });
-
-    // console.log(state);
-    // useData()?.setState({ ...useData()?.state, values });
-    // console.log(state);
   }, [values]);
 
   // console.log(state.requisitionDetails);
